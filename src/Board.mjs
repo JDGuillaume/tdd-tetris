@@ -12,7 +12,7 @@ export class Board {
   static SPACE = "\n";
 
   drop(block) {
-    this.fallingBlock = block;
+    this.fallingBlock = { block, row: 0, col: 1 };
   }
 
   hasFalling() {
@@ -20,15 +20,22 @@ export class Board {
   }
 
   hasFallingAt(row, col) {
-    return this.hasFalling() && (row === 0) & (col === 1);
+    return (
+      this.hasFalling() &&
+      (row === this.fallingBlock.row) & (this.fallingBlock.col === col)
+    );
   }
+
+  tick() {}
 
   toString() {
     let state = "";
 
     for (let row = 0; row < this.height; row++) {
       for (let col = 0; col < this.width; col++) {
-        state += this.hasFallingAt(row, col) ? this.fallingBlock : Board.EMPTY;
+        state += this.hasFallingAt(row, col)
+          ? this.fallingBlock.block
+          : Board.EMPTY;
       }
 
       state += Board.SPACE;
