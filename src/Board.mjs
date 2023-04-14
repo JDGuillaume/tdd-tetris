@@ -12,6 +12,8 @@ export class Board {
   static SPACE = "\n";
 
   drop(block) {
+    if (this.hasFalling()) throw new Error("already falling");
+
     this.fallingBlock = { block, row: 0, col: 1 };
   }
 
@@ -26,7 +28,9 @@ export class Board {
     );
   }
 
-  tick() {}
+  tick() {
+    this.fallingBlock.row++;
+  }
 
   toString() {
     let state = "";
