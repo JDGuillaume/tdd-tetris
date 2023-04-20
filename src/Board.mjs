@@ -57,7 +57,11 @@ export class Board {
 
   tick() {
     const { block, row, col } = this.fallingBlock;
-    if (row !== this.height - 1) {
+
+    if (
+      row !== this.height - 1 &&
+      this.getBlockAt(row + 1, col) === Board.EMPTY
+    ) {
       this.fallingBlock.row++;
     } else {
       this.board[row][col] = block;
