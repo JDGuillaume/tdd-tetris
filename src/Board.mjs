@@ -42,6 +42,10 @@ export class Board {
     return this.getBlockAt(row + 1, col) !== Board.EMPTY;
   }
 
+  fallOneRow() {
+    this.fallingBlock.row++;
+  }
+
   getBlockAt(row, col) {
     if (this.hasFallingAt(row, col)) {
       return this.fallingBlock.block;
@@ -72,7 +76,7 @@ export class Board {
     const { block, row, col } = this.fallingBlock;
 
     if (!this.isColliding(row, col)) {
-      this.fallingBlock.row++;
+      this.fallOneRow();
     } else {
       this.board[row][col] = block;
       this.fallingBlock = null;
