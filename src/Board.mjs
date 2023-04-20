@@ -5,10 +5,8 @@ export class Board {
   constructor(width, height) {
     this.width = width;
     this.height = height;
+    this.board = this.createEmptyBoard();
     this.fallingBlock = null;
-    this.board = null;
-
-    this.createEmptyBoard();
   }
 
   static EMPTY = ".";
@@ -27,13 +25,21 @@ export class Board {
       emptyBoard.push(preparedRow);
     }
 
-    this.board = emptyBoard;
+    return emptyBoard;
   }
 
   drop(block) {
     if (this.hasFalling()) throw new Error("already falling");
 
     this.fallingBlock = { block, row: 0, col: 1 };
+  }
+
+  fallingBlockHitsFloor(row) {
+    return row === this.height - 1;
+  }
+
+  fallingBlockHitsStationary(row, col) {
+    return this.getBlockAt(row + 1, col) !== Board.EMPTY;
   }
 
   getBlockAt(row, col) {
@@ -55,13 +61,17 @@ export class Board {
     );
   }
 
+  isColliding(row, col) {
+    return (
+      this.fallingBlockHitsFloor(row) ||
+      this.fallingBlockHitsStationary(row, col)
+    );
+  }
+
   tick() {
     const { block, row, col } = this.fallingBlock;
 
-    if (
-      row !== this.height - 1 &&
-      this.getBlockAt(row + 1, col) === Board.EMPTY
-    ) {
+    if (!this.isColliding(row, col)) {
       this.fallingBlock.row++;
     } else {
       this.board[row][col] = block;
