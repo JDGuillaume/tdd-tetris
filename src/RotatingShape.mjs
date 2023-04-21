@@ -7,6 +7,10 @@ export class RotatingShape {
     return shape.split("\n").map((piece) => piece.trim().split(""));
   }
 
+  rotateLeft() {
+    return this.rotateRight().rotateRight().rotateRight();
+  }
+
   rotateRight() {
     const rotatedShape = structuredClone(this.shape);
 
