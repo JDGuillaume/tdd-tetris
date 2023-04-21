@@ -1,4 +1,3 @@
-/*
 import { expect } from "chai";
 import { Tetromino } from "../src/Tetromino.mjs";
 
@@ -12,11 +11,16 @@ function distinctOrientations(shape) {
     distinct.add(goingLeft.toString());
     goingLeft = goingLeft.rotateLeft();
   }
+
   return distinct;
 }
 
 describe("The T shape", () => {
-  const shape = Tetromino.T_SHAPE;
+  let shape;
+
+  beforeEach(() => {
+    shape = Tetromino.T_SHAPE;
+  });
 
   it("initial orientation", () => {
     expect(shape.toString()).to.equalShape(
@@ -26,7 +30,7 @@ describe("The T shape", () => {
     );
   });
 
-  xit("can be rotated right/clockwise", () => {
+  it("can be rotated right/clockwise", () => {
     expect(shape.rotateRight().toString()).to.equalShape(
       `.T.
        .TT
@@ -34,7 +38,7 @@ describe("The T shape", () => {
     );
   });
 
-  xit("can be rotated left/counter-clockwise", () => {
+  it("can be rotated left/counter-clockwise", () => {
     expect(shape.rotateLeft().toString()).to.equalShape(
       `.T.
        TT.
@@ -42,11 +46,11 @@ describe("The T shape", () => {
     );
   });
 
-  xit("has 4 distinct orientations", () => {
+  it("has 4 distinct orientations", () => {
+    console.log(distinctOrientations(shape).size);
     expect(distinctOrientations(shape).size).to.equal(4);
   });
 });
-*/
 
 /*
 describe("The I shape", () => {

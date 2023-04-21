@@ -61,7 +61,8 @@ export class Board {
   hasFallingAt(row, col) {
     return (
       this.hasFalling() &&
-      (row === this.fallingBlock.row) & (this.fallingBlock.col === col)
+      row === this.fallingBlock.row &&
+      this.fallingBlock.col === col
     );
   }
 
@@ -75,11 +76,11 @@ export class Board {
   tick() {
     const { block, row, col } = this.fallingBlock;
 
-    if (!this.isColliding(row, col)) {
-      this.fallOneRow();
-    } else {
+    if (this.isColliding(row, col)) {
       this.board[row][col] = block;
       this.fallingBlock = null;
+    } else {
+      this.fallOneRow();
     }
   }
 
