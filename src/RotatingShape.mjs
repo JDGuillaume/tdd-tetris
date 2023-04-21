@@ -22,7 +22,6 @@ export class RotatingShape {
     }
 
     const shapeAsString = this.toStringSpecific(rotatedShape);
-    console.log(shapeAsString);
     return new RotatingShape(shapeAsString);
   }
 
