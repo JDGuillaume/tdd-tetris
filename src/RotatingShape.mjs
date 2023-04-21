@@ -8,7 +8,17 @@ export class RotatingShape {
   }
 
   rotateLeft() {
-    return this.rotateRight().rotateRight().rotateRight();
+    const rotatedShape = structuredClone(this.shape);
+
+    for (let row = 0; row < rotatedShape.length; row++) {
+      for (let col = 0; col < rotatedShape[row].length; col++) {
+        rotatedShape[rotatedShape[row].length - 1 - col][row] =
+          this.shape[row][col];
+      }
+    }
+
+    this.shape = rotatedShape;
+    return this;
   }
 
   rotateRight() {
